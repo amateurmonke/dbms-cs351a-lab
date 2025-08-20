@@ -1,19 +1,19 @@
 CREATE DATABASE CS405_FestMgmt;
 USE CS405_FestMgmt;
 
-CREATE TABLE Team(
-	team_id INT PRIMARY KEY,
-    team_name VARCHAR(100) NOT NULL,
-    num_members INT,
-    team_type ENUM('MNG', 'ORG') DEFAULT 'ORG'
-);
-
 CREATE TABLE Fest (
 	fest_id INT PRIMARY KEY,
     fest_name VARCHAR(100) NOT NULL,
     year YEAR NOT NULL,
-    team_id INT,
-    FOREIGN KEY (team_id) REFERENCES Team(team_id)
+    head_team_id INT
+);
+
+CREATE TABLE Team(
+	team_id INT PRIMARY KEY,
+    team_name VARCHAR(100) NOT NULL,
+    team_type ENUM('MNG', 'ORG') DEFAULT 'ORG',
+    fest_id INT,
+    FOREIGN KEY (fest_id) REFERENCES Fest(fest_id)
 );
 
 CREATE TABLE Member (
