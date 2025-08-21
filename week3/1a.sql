@@ -99,3 +99,47 @@ CREATE TABLE Purchased(
     FOREIGN KEY (item_name) REFERENCES Item(name)
 );
 
+
+-- TASK 2.1: Modify gender attribute
+-- 'M', 'F', 'O'
+-- Place gender  after name
+DESCRIBE Participant;
+
+ALTER TABLE Participant
+MODIFY gender ENUM('M', 'F', 'O') AFTER name;
+DESCRIBE Participant;
+
+
+-- TASK 2.2: Default value & NOT NULL for price
+-- Default = 50, cannot be NULL
+DESCRIBE Item;
+ALTER TABLE Item
+ADD price INT NOT NULL DEFAULT 50;
+-- I forgot to add price before so i'm using ADD, else use MODIFY
+DESCRIBE Item;
+
+
+-- TASK 2.3: Max stock condition
+-- Each stall item max = 150 units
+DESCRIBE Stall_items;
+ALTER TABLE Stall_items 
+ADD stock INT;
+ALTER TABLE Stall_items 
+ADD CONSTRAINT check_max_stock CHECK (stock <= 150);
+DESCRIBE Stall_items;
+
+
+-- TASK 2.4: Rename table
+-- Event_conduction → Event_schedule
+DESCRIBE Event_conduction;
+RENAME TABLE Event_conduction TO Event_schedule;
+DESCRIBE Event_schedule;
+
+
+-- TASK 2.5: Move Date_of_conduction to first column
+DESCRIBE Event_schedule;
+ALTER TABLE Event_schedule 
+MODIFY Date_of_conduction DATE FIRST;
+DESCRIBE Event_schedule;
+
+DESC Fest;
